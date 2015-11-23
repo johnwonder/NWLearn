@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hello World!</title>
+  </head>
+  <body>
+    <h1>Hello World!</h1>
+    We are using node.js <script>document.write(process.version)</script>.
+  </body>
+  <script type="text/javascript">
+
+  </script>
+  <script>
+      var ncp = require('ncp').ncp;
+      var path = require('path');
+      var fs = require('fs');
+      var exec = require('child_process').exec;
+      if(process.execPath.indexOf('nwjsss') < 0)
+      {
+
+
+      var resolveFiles= ['nw.exe','libEGL.dll','libGLESv2.dll','nw.pak','icudtl.dat','ffmpegsumo.dll','d3dcompiler_47.dll','index.html','package.json','node_modules/ncp','node_modules/path'];
+      var fileLen = resolveFiles.length -1 ;
+      var dirname =path.dirname(process.execPath);
+     
+
+      copyFiles();
+ }
+
+   function copyFiles(err){
+          if(err == null && fileLen >= 0){
+            var fi = resolveFiles[fileLen];
+            fileLen--;
+            if(isDir(fi))
+            {
+
+                exec('xcopy '+path.join(dirname,fi)+' '+path.join(dirname+'ss',fi)+' /s /e /Q /Y /I',copyFiles);
+            }else{
+                ncp(path.join(dirname,fi),path.join(dirname+'ss',fi),copyFiles);
+          }
+          return;
+        }
+        setTimeout(function(){
+          callback();
+        },300);
+        
+   }
+
+
+    function callback()
+    {
+       var spawn = require('child_process').spawn;
+      var opts = {
+      detached: true
+      };
+      var sp = spawn(path.join(dirname+'ss','nw.exe'),['',''],opts);
+      sp.unref();
+      process.exit(1);
+    }
+
+     function exists(path){  
+     return fs.existsSync(path) || path.existsSync(path);  
+      }  
+    function isDir(path){  
+        return exists(path) && fs.statSync(path).isDirectory();  
+    }  
+        function isFile(path){  
+        return exists(path) && fs.statSync(path).isFile();  
+    }  
+  </script>
+</html>

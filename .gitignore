@@ -1,0 +1,10 @@
+.DS_Store
+node_modules
+build/
+npm-debug.log
+nw.exe
+pdf.dll
+icudtl.dat
+nwjc.exe
+nw.pak
+libGLESv2.dll
